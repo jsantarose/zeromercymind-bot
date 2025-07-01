@@ -1,36 +1,24 @@
 import tweepy
-import random
 
-# Twitter API credentials (newly regenerated)
-API_KEY = "H64FEIVx7d05cdCUGLCIcwmvA"
-API_SECRET = "P8VvqDXAbOsVN0PLq2hMU6trtNZXDWdBVBEnYApHhVXpRkW"
-ACCESS_TOKEN = "1940036600274239488-7HOw8FRj4v4WyAwTSuUg05nhZfPbSq7"
-ACCESS_SECRET = "uc7vHW9zPvQvbi6RVevoLP6pQeqdJK5NTz6JjhVRIDvL0"
+print("🤖 Starting bot...")
 
-# Quotes list
-quotes = [
-    "Suffer voluntarily, or be forced to suffer later.",
-    "You weren't made to blend in. You were made to lead warriors.",
-    "Discipline is mercy to your future self.",
-    "Nobody is coming. Get up anyway.",
-    "Train your mind to obey you like a weapon.",
-    "Zero mercy. Total focus. Daily execution."
-]
+# 🔑 Twitter API credentials (copied from your screenshots)
+API_KEY = "H64FEIVx7d05cdCUGLCIcwvmvA"
+API_KEY_SECRET = "P8VvqDXAbOsVNOPLq2hMU6trtNZDWDgBV8EnYjAphHVXpRkW"
+ACCESS_TOKEN = "1940036600274239488-7HOw6FRjAv4WyAwTSuUg05nhZPbSq7"
+ACCESS_TOKEN_SECRET = "uc7vHW9zPvQvbi6RVewoLP6pQeqdJK5NTz6JhjVRIDvL0"
 
-def tweet_random_quote():
-    print("🤖 Starting bot...")
+# 🛡️ Authenticate
+auth = tweepy.OAuth1UserHandler(API_KEY, API_KEY_SECRET, ACCESS_TOKEN, ACCESS_TOKEN_SECRET)
+api = tweepy.API(auth)
 
-    try:
-        auth = tweepy.OAuth1UserHandler(API_KEY, API_SECRET, ACCESS_TOKEN, ACCESS_SECRET)
-        api = tweepy.API(auth)
+# 🐦 Define tweet message
+tweet = "Suffer voluntarily, or be forced to suffer later."
+print(f"📢 Tweet selected: {tweet}")
 
-        tweet = random.choice(quotes)
-        print(f"🗣 Tweet selected: {tweet}")
-        api.update_status(tweet)
-        print("✅ Tweet sent successfully.")
-    except tweepy.TweepyException as e:
-        print(f"❌ Error occurred while tweeting: {e}")
-
-if __name__ == "__main__":
-    tweet_random_quote()
-
+# 🚀 Send tweet
+try:
+    api.update_status(tweet)
+    print("✅ Tweet posted successfully!")
+except Exception as e:
+    print("❌ Error occurred while tweeting:", e)
