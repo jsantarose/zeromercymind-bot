@@ -2,21 +2,21 @@ import tweepy
 
 print("🤖 Starting bot...")
 
-# 🔑 Twitter API credentials (copied from your screenshots)
-API_KEY = "H64FEIVx7d05cdCUGLCIcwvmvA"
-API_KEY_SECRET = "P8VvqDXAbOsVNOPLq2hMU6trtNZDWDgBV8EnYjAphHVXpRkW"
-ACCESS_TOKEN = "1940036600274239488-7HOw6FRjAv4WyAwTSuUg05nhZPbSq7"
-ACCESS_TOKEN_SECRET = "uc7vHW9zPvQvbi6RVewoLP6pQeqdJK5NTz6JhjVRIDvL0"
+# 🔐 Twitter API credentials (July 1 - updated)
+API_KEY = "281tbn64D9mUzDwULzULNsn0y"
+API_KEY_SECRET = "P8VvqDXAbBOsVNOPLq2hMU6trtNZXDWdDV8EnYyAphHVXpRkwV"
+ACCESS_TOKEN = "1940036600274239488-4CZYbSVVqx5oJIkx5QaJtvXCj2K6fo"
+ACCESS_TOKEN_SECRET = "0XtfjpEr3rfPAdjggoZdynPXN2SlKFrnezIF1TMoO76h1"
 
-# 🛡️ Authenticate
+# 🔑 Authenticate with Tweepy
 auth = tweepy.OAuth1UserHandler(API_KEY, API_KEY_SECRET, ACCESS_TOKEN, ACCESS_TOKEN_SECRET)
 api = tweepy.API(auth)
 
-# 🐦 Define tweet message
+# 🐦 Tweet content
 tweet = "Suffer voluntarily, or be forced to suffer later."
 print(f"📢 Tweet selected: {tweet}")
 
-# 🚀 Send tweet
+# 🚀 Post tweet
 try:
     api.update_status(tweet)
     print("✅ Tweet posted successfully!")
