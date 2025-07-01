@@ -1,48 +1,36 @@
 import tweepy
-import os
 import random
 
-# Load keys from environment
-api_key = os.environ["API_KEY"]
-api_secret = os.environ["API_SECRET"]
-access_token = os.environ["ACCESS_TOKEN"]
-access_token_secret = os.environ["ACCESS_TOKEN_SECRET"]
+# Twitter API credentials (newly regenerated)
+API_KEY = "H64FEIVx7d05cdCUGLCIcwmvA"
+API_SECRET = "P8VvqDXAbOsVN0PLq2hMU6trtNZXDWdBVBEnYApHhVXpRkW"
+ACCESS_TOKEN = "1940036600274239488-7HOw8FRj4v4WyAwTSuUg05nhZfPbSq7"
+ACCESS_SECRET = "uc7vHW9zPvQvbi6RVevoLP6pQeqdJK5NTz6JjhVRIDvL0"
 
-print("🔐 Starting bot...")
-print("🔑 API Key loaded:", "*" * len(api_key))
-print("🔑 Access Token loaded:", "*" * len(access_token))
+# Quotes list
+quotes = [
+    "Suffer voluntarily, or be forced to suffer later.",
+    "You weren't made to blend in. You were made to lead warriors.",
+    "Discipline is mercy to your future self.",
+    "Nobody is coming. Get up anyway.",
+    "Train your mind to obey you like a weapon.",
+    "Zero mercy. Total focus. Daily execution."
+]
 
-# Authenticate using OAuth 1.0a (classic)
-auth = tweepy.OAuthHandler(api_key, api_secret)
-auth.set_access_token(access_token, access_token_secret)
-api = tweepy.API(auth)
+def tweet_random_quote():
+    print("🤖 Starting bot...")
 
-# Load tweet list
-with open("tweets.txt", "r", encoding="utf-8") as f:
-    lines = [line.strip() for line in f if line.strip()]
+    try:
+        auth = tweepy.OAuth1UserHandler(API_KEY, API_SECRET, ACCESS_TOKEN, ACCESS_SECRET)
+        api = tweepy.API(auth)
 
-# Load used tweets
-used_path = "used.txt"
-if os.path.exists(used_path):
-    with open(used_path, "r", encoding="utf-8") as f:
-        used = set(f.read().splitlines())
-else:
-    used = set()
+        tweet = random.choice(quotes)
+        print(f"🗣 Tweet selected: {tweet}")
+        api.update_status(tweet)
+        print("✅ Tweet sent successfully.")
+    except tweepy.TweepyException as e:
+        print(f"❌ Error occurred while tweeting: {e}")
 
-# Get unused tweet
-unused = [line for line in lines if line not in used]
-if not unused:
-    print("❌ No more unused tweets.")
-    exit()
+if __name__ == "__main__":
+    tweet_random_quote()
 
-tweet = random.choice(unused)
-print("📢 Tweet selected:", tweet)
-
-# Post the tweet
-try:
-    api.update_status(tweet)
-    print("✅ Tweeted successfully!")
-    with open(used_path, "a", encoding="utf-8") as f:
-        f.write(tweet + "\n")
-except Exception as e:
-    print("❌ Error occurred while tweeting:", e)
